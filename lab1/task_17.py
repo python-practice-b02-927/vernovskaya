@@ -9,7 +9,7 @@ def task_8_27():
         move_up()
     move_left()
     if cell_is_filled():
-        return 0
+        return 
     if not cell_is_filled():
         move_right(n=2)
 
