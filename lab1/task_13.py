@@ -15,10 +15,11 @@ def fill_upper_lower_cell():
 @task (delay = 0.01)
 
 def task_8_10():
-	while not wall_is_on_the_right():
+	while True:
 		fill_upper_lower_cell()
+		if wall_is_on_the_right():
+			break
 		move_right()
-	fill_upper_lower_cell()
 
 
 if __name__ == '__main__':
