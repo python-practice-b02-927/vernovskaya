@@ -14,11 +14,11 @@ def task_8_18():
                 move_up()
                 if cell_is_filled():
                     n = n + 1
-                    mov('ax', n)
                 fill_cell()
             while not wall_is_beneath():
                 move_down()
         move_right()
+    mov('ax', n)
         
                 
 
