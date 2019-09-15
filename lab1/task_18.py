@@ -4,18 +4,19 @@ from pyrob.api import *
 
 def quit(): # я думала, выход снизу тоже может быть
     if not wall_is_above():
-        while not wall_is_above():
-            move_up()
-        while not wall_is_on_the_left():
-            move_left()
+        move_up()
+        corner()
     elif not wall_is_beneath():
-        while not wall_is_beneath():
-            move_down()
-        while not wall_is_on_the_left():
-            move_left()
-        while not wall_is_above():
-            move_up()
+        move_down()
+        corner()
 
+def corner():
+    while not wall_is_on_the_left():
+        move_left()
+    while not wall_is_above():
+        move_up()
+
+    
 @task
 def task_8_28():
     while True:
