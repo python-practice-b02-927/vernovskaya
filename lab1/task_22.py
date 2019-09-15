@@ -5,11 +5,11 @@ from pyrob.api import *
 
 @task (delay = 0.01)
 def task_5_10():
-    k = int(0)
-    m = int(0)
+    k = 0
+    m = 0
     if wall_is_beneath():
         fill_cell()
-        return 0
+        return 
     while not wall_is_beneath():
         move_down()
         k = k + 1
@@ -33,7 +33,7 @@ def task_5_10():
             for i in range(m):
                 move_left()
                 fill_cell()
-        if (j != k):
+        if j != k:
             move_down()
     if wall_is_on_the_right():
         move_left(n=m)
