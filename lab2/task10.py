@@ -12,7 +12,7 @@ def circle(i):
 		t.left(180 - 180*(200-2)/200)
 	
 
-for i in range(20):
+for i in range(3):
 	circle(i)
 	t.right(60)
 
