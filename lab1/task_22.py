@@ -8,8 +8,14 @@ def task_5_10():
     k = 0
     m = 0
     if wall_is_beneath():
+        if wall_is_on_the_right():
+            fill_cell()
+            return
+        while not wall_is_beneath():
+            fill_cell()
+            move_down()
         fill_cell()
-        return 
+        return
     while not wall_is_beneath():
         move_down()
         k = k + 1
