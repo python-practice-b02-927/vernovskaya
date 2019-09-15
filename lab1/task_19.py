@@ -14,7 +14,7 @@ def task_8_29():
         while not wall_is_on_the_right():
             move_right()
         if wall_is_above():
-            return 0
+            return 
         else:
             while not wall_is_above():
                 move_up()
