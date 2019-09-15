@@ -6,7 +6,7 @@ from pyrob.api import *
 @task
 def task_7_7():
     k = 0
-    while k != 3:
+    while k != 3 and not wall_is_on_the_right():
         move_right()
         if cell_is_filled():
             k += 1
