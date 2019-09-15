@@ -22,13 +22,13 @@ def task_8_28():
     while True:
         if not wall_is_above() or not wall_is_beneath():
             quit()
-            return 0
+            return 
         if wall_is_on_the_left():
             while True:
                 move_right()
                 if not wall_is_above() or not wall_is_beneath():
                     quit()
-                    return 0
+                    return 
         move_left()
                 
     
