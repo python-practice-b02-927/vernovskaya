@@ -17,7 +17,7 @@ def task_8_30():
                     if wall_is_on_the_right() and wall_is_beneath():
                         while not wall_is_on_the_left():
                             move_left()
-                        return 0
+                        return 
                 continue
             move_left()
         move_down()
