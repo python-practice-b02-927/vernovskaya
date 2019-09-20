@@ -46,4 +46,4 @@ t.forward(50)
 move(-50, -150)
 
 t.color("red")
-semicircle(3000)
+semicircle(300)
