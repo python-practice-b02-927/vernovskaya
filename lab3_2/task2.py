@@ -33,12 +33,27 @@ def draw_umbrella(w):
     stick.draw(w)
     material.draw(w)
 
+def draw_cloud(w):
+    for i in range(3):
+        circle1 = gr.Circle(gr.Point(70 + 30*i, 80), 30)
+        circle1.setFill('white')
+        circle1.draw(w)
+    for i in range(4):
+        circle1 = gr.Circle(gr.Point(70 + 30*i, 100), 30)
+        circle1.setFill('white')
+        circle1.draw(w)
+
+def draw_ship(w):
+    pass
+
 def main(w):
     draw_background(w)
     draw_water(w)
     draw_sand(w)
     draw_sun(w)
     draw_umbrella(w)
+    draw_cloud(w)
+    draw_ship(w)
 
 main(w)
 w.getMouse()
