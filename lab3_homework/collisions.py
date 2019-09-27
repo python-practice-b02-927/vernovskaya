@@ -32,10 +32,6 @@ def draw_block2(coords, w):
     block2.draw(w)
 
 
-def clear_window():
-    pass
-
-
 def check_wall():
     pass
 
