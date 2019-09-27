@@ -8,3 +8,7 @@ window = gr.GraphWin("Collisions", SIZE_X, SIZE_Y)
 coords = gr.Point(200, 200)
 
 velocity = gr.Point(-1, 0)
+
+def add():
+    pass
+
