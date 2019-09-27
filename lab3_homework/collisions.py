@@ -15,3 +15,7 @@ def add():
 def draw_block():
     pass
 
+def clear_window():
+    pass
+
+
