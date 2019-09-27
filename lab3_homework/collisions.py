@@ -12,3 +12,6 @@ velocity = gr.Point(-1, 0)
 def add():
     pass
 
+def draw_block():
+    pass
+
