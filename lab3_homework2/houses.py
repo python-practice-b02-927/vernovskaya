@@ -31,7 +31,14 @@ def house(w, h, p): #p stands for starting point, h stands for height
 
 
 def cloud(w, r, p): 
-    pass
+    for i in range(4):
+        cloud1 = gr.Circle(gr.Point(p.x + i*(r + 5), p.y), r)
+        cloud1.setFill('white')
+        cloud1.draw(w)
+    for i in range(2):
+        cloud1 = gr.Circle(gr.Point(p.x + r*(7/3) - i*(r + 5), p.y - r), r)
+        cloud1.setFill('white')
+        cloud1.draw(w)
 
 
 def tree(w, r):
@@ -44,9 +51,9 @@ def main(w):
     sun(w)
     house(w, 200, gr.Point(100, 420))
     house(w, 120, gr.Point(560, 410))
-    cloud(w, 30, gr.Point(150, 50))
-    cloud(w, 30, gr.Point(700, 60))
-    cloud(w, 20, gr.Point(500, 70))
+    cloud(w, 30, gr.Point(250, 250))
+    cloud(w, 30, gr.Point(700, 250))
+    cloud(w, 20, gr.Point(500, 300))
     tree(w, 40)
     tree(w, 30)
 
