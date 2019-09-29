@@ -31,6 +31,7 @@ def house(w, h, p): #p stands for starting point, h stands for height
     
     window = gr.Rectangle(gr.Point((p.x + (4 / 6) * h - h / 5), p.y + h / 3), gr.Point((p.x + (4 / 6) * h + h / 5), p.y + h*(2 / 3)))
     window.setFill('cyan3')
+    window.setOutline('orange')
     window.draw(w)
     
     roof = gr.Polygon(p, gr.Point(p.x + (4 / 3) * h, p.y), gr.Point(p.x + (4 / 6) * h, p.y - h / 2))
