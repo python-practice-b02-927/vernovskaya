@@ -26,7 +26,7 @@ def cloud(w, r, p):
     pass
 
 
-def tree(w):
+def tree(w, r):
     pass
 
 
@@ -39,8 +39,8 @@ def main(w):
     cloud(w, 30, gr.Point(150, 50))
     cloud(w, 30, gr.Point(700, 60))
     cloud(w, 20, gr.Point(500, 70))
-    tree(w)
-    tree(w)
+    tree(w, 40)
+    tree(w, 30)
 
 
 main(w)
