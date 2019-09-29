@@ -18,10 +18,22 @@ def sun(w):
     pass
 
 
+def house(w):
+    pass
+
+
+def cloud(w):
+    pass
+
+
 def main(w):
     sky(w)
     grass(w)
     sun(w)
+    house(w)
+    house(w)
+    cloud(w)
+    cloud(w)
 
 
 main(w)
