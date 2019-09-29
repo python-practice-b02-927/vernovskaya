@@ -13,7 +13,9 @@ def sky(w):
 
 
 def grass(w):
-    pass
+    grass = gr.Rectangle(gr.Point(0, 400), gr.Point(1000, 800))
+    grass.setFill('lime')
+    grass.draw(w)
 
 
 def sun(w):
