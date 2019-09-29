@@ -25,7 +25,9 @@ def sun(w):
 
 
 def house(w, h, p): #p stands for starting point, h stands for height
-    pass
+    body = gr.Rectangle(p, gr.Point(p.x + (4/3)*h, p.y + h))
+    body.setFill('chocolate')
+    body.draw(w)
 
 
 def cloud(w, r, p): 
@@ -40,8 +42,8 @@ def main(w):
     sky(w)
     grass(w)
     sun(w)
-    house(w, 500, gr.Point(100, 500))
-    house(w, 300, gr.Point(500, 500))
+    house(w, 200, gr.Point(100, 420))
+    house(w, 120, gr.Point(560, 410))
     cloud(w, 30, gr.Point(150, 50))
     cloud(w, 30, gr.Point(700, 60))
     cloud(w, 20, gr.Point(500, 70))
