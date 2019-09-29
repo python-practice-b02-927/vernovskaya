@@ -10,8 +10,13 @@ def sky():
     pass
 
 
+def grass():
+    pass
+
+
 def main(w):
     sky(w)
+    grass(w)
 
 main(w)
 w.getMouse()
