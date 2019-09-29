@@ -26,6 +26,10 @@ def cloud(w):
     pass
 
 
+def tree(w):
+    pass
+
+
 def main(w):
     sky(w)
     grass(w)
@@ -34,6 +38,8 @@ def main(w):
     house(w)
     cloud(w)
     cloud(w)
+    tree(w)
+    tree(w)
 
 
 main(w)
