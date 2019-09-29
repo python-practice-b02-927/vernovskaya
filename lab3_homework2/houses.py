@@ -19,7 +19,9 @@ def grass(w):
 
 
 def sun(w):
-    pass
+    sun = gr.Circle(gr.Point(100, 100), 50)
+    sun.setFill('pink')
+    sun.draw(w)
 
 
 def house(w, h, p): #p stands for starting point, h stands for height
