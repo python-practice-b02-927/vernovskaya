@@ -6,17 +6,23 @@ SIZE_Y = 800
 w = gr.GraphWin("Landscape", SIZE_X, SIZE_Y)
 
 
-def sky():
+def sky(w):
     pass
 
 
-def grass():
+def grass(w):
+    pass
+
+
+def sun(w):
     pass
 
 
 def main(w):
     sky(w)
     grass(w)
+    sun(w)
+
 
 main(w)
 w.getMouse()
