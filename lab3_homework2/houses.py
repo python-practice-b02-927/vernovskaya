@@ -7,7 +7,9 @@ w = gr.GraphWin("Landscape", SIZE_X, SIZE_Y)
 
 
 def sky(w):
-    pass
+    sky = gr.Rectangle(gr.Point(0, 0), gr.Point(1000, 400))
+    sky.setFill('cyan')
+    sky.draw(w)
 
 
 def grass(w):
