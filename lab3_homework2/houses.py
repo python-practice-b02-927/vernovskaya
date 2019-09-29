@@ -18,7 +18,7 @@ def sun(w):
     pass
 
 
-def house(w):
+def house(w, h, p):
     pass
 
 
@@ -34,8 +34,9 @@ def main(w):
     sky(w)
     grass(w)
     sun(w)
-    house(w)
-    house(w)
+    house(w, 500, gr.Point(100, 500))
+    house(w, 300, gr.Point(500, 500))
+    cloud(w)
     cloud(w)
     cloud(w)
     tree(w)
