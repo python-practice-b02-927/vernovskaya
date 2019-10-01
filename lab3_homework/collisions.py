@@ -18,34 +18,44 @@ def add(point_1, point_2):
     return new_point
 
 
-def draw_block1(coords, w):
-    block1 = gr.Rectangle(coords1, add(coords1, gr.Point(40,20)))
-    block1.setFill('cyan')
-    
-    block1.draw(w)
+def check_wall_1():
+    if coords1l == gr.Point(0, 200):
+        v1 = -v1
 
 
-def draw_block2(coords, w):
-    block2 = gr.Rectangle(coords2, add(coords2, gr.Point(40,20)))
-    block2.setFill('blue')
-    
-    block2.draw(w)
-
-
-def check_wall():
-    pass
-
-
-def check_other_block():
-    pass
+def check_block():
+    if coords1r == coords2l:
+        v10 = v1
+        v20 = v2
+        v1 = ((m1 - m2)*v10 + 2*m2*v20) / (m1 + m2)
+        v1 = ((m2 - m1)*v20 + 2*m1*v10) / (m1 + m2)
 
 
 def main(w):
     coords = gr.Point(200, 200)
     m1 = int(input('Enter m1: '))
     m2 = int(input('Enter m2: '))
-    draw_block1(coords, w)
-    draw_block2(coords, w)
+    v2 = -1
+    coords1l = gr.Point(200, 200)
+    coords2l = gr.Point(300, 200)
+    coords1r = add(coords1, gr.Point(40,20))
+    coords2r = add(coords2, gr.Point(40,20))
+    block1 = gr.Rectangle(coords1l, coords1r)
+    block1.setFill('cyan')
+    block1.draw(w)
+    
+    block2 = gr.Rectangle(coords2l,coords2r)
+    block2.setFill('blue')
+    block2.draw(w)
+
+    while True:
+        block1.move(v1, 0)
+        gr.time.sleep(0.02)
+        coords1l = gr.Point(coords1l.x + v1, coords1l.y)
+        coords2l = gr.Point(coords2l.x + v2, coords2l.y)
+        
+        
+        
 
     
 
