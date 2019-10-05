@@ -6,7 +6,13 @@ SIZE_Y = 400
 
 w = gr.GraphWin("Collisions", SIZE_X, SIZE_Y)
 
+line = gr.Line(gr.Point(0, 222), gr.Point(800, 222))
+line.setWidth(4)
+line.setOutline('white')
+line.draw(w)
+
 count = 0
+
 
 def add(point_1, point_2):
     new_point = gr.Point(point_1.x + point_2.x,
@@ -86,5 +92,4 @@ def main(w):
 
     
 main(w)
-w.getMouse()
 w.close()
