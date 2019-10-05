@@ -55,7 +55,19 @@ def main(w):
     block2.setFill('blue')
     block2.draw(w)
 
-    for i in range(700):
+    if d == 0:
+        t = 100
+    elif d == 1:
+        t = 300
+    elif d == 2:
+        t = 700
+    elif d == 3:
+        t = 3600
+    elif d > 3:
+        print('This will take too much time. Please, try 1, 2 or 3.')
+        return
+
+    for i in range(t):
         block1.move(v1, 0)
         block2.move(v2, 0)
         coords1l = gr.Point(coords1l.x + v1, coords1l.y)
@@ -72,7 +84,7 @@ def main(w):
             count = count + 1
         gr.time.sleep(0.02)
 
-    print('pi = ', count/(10**d))
+    print('pi =', count/(10**d))
 
     
 main(w)
