@@ -31,9 +31,10 @@ def check_block_1(coords1r, coords2l, v1, v2):
 
 
 def main(w):
+    d = int(input('Enter the number of digital places: '))
     
     m1 = 1
-    m2 = 10000
+    m2 = 100**d
     
     v1 = 0
     v2 = -5
@@ -71,7 +72,7 @@ def main(w):
             count = count + 1
         gr.time.sleep(0.02)
 
-    print(count)
+    print('pi = ', count/(10**d))
 
     
 main(w)
