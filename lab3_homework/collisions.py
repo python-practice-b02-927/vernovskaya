@@ -6,6 +6,7 @@ SIZE_Y = 400
 
 w = gr.GraphWin("Collisions", SIZE_X, SIZE_Y)
 
+count = 0
 
 def add(point_1, point_2):
     new_point = gr.Point(point_1.x + point_2.x,
@@ -13,21 +14,18 @@ def add(point_1, point_2):
     return new_point
 
 
-def check(coords2l, v2):
-    if coords2l.x < 0:
-        v2 = -v2
-
-
-def check_wall_1(w, coords1l, v1):
-    if coords1l == gr.Point(0, 200):
+def check_wall_1(coords1l, v1, count):
+    if coords1l.x < 0:
         v1 = -v1
+        count += 1
 
 
-def check_block_1(coords1r, coords2l, v1, v2):
-    if (coords1r.x > coords2l.x and v2 < 0) or (coords1r.x < coords2l.x and v2 > 0):
-            v10 = v1
-            v1 = ((m1 - m2)*v1 + 2*m2*v2) / (m1 + m2)
-            v2 = ((m2 - m1)*v2 + 2*m1*v10) / (m1 + m2)
+def check_block_1(coords1r, coords2l, v1, v2, m1, m2, count):
+    if coords1r.x > coords2l.x:
+        v10 = v1
+        v1 = ((m1 - m2)*v1 + 2*m2*v2) / (m1 + m2)
+        v2 = ((m2 - m1)*v2 + 2*m1*v10) / (m1 + m2)
+        count += 1
 
 
 def main(w):
@@ -56,7 +54,7 @@ def main(w):
     block2.draw(w)
 
     if d == 0:
-        t = 220
+        t = 250
     elif d == 1:
         t = 300
     elif d == 2:
@@ -64,7 +62,7 @@ def main(w):
     elif d == 3:
         t = 3600
     elif d > 3:
-        print('This will take too much time. Please, try 1, 2 or 3.')
+        print('This will take up too much time. Please, try 0, 1, 2 or 3.')
         return
 
     for i in range(t):
@@ -76,12 +74,12 @@ def main(w):
         coords2r = gr.Point(coords2r.x + v2, coords2r.y)
         if coords1l.x < 0:
             v1 = -v1
-            count = count + 1
+            count += 1
         if coords1r.x > coords2l.x:
             v10 = v1
             v1 = ((m1 - m2)*v1 + 2*m2*v2) / (m1 + m2)
             v2 = ((m2 - m1)*v2 + 2*m1*v10) / (m1 + m2)
-            count = count + 1
+            count += 1
         gr.time.sleep(0.02)
 
     print('pi =', count/(10**d))
