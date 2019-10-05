@@ -56,7 +56,7 @@ def main(w):
     block2.draw(w)
 
     if d == 0:
-        t = 100
+        t = 220
     elif d == 1:
         t = 300
     elif d == 2:
