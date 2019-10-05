@@ -29,8 +29,8 @@ def check_wall_1(coords1l, v1, count):
 def check_block_1(coords1r, coords2l, v1, v2, m1, m2, count):
     if coords1r.x > coords2l.x:
         v10 = v1
-        v1 = ((m1 - m2)*v1 + 2*m2*v2) / (m1 + m2)
-        v2 = ((m2 - m1)*v2 + 2*m1*v10) / (m1 + m2)
+        v1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2)
+        v2 = ((m2 - m1) * v2 + 2 * m1 * v10) / (m1 + m2)
         count += 1
 
 
@@ -48,8 +48,8 @@ def main(w):
     coords1l = gr.Point(200, 200)
     coords2l = gr.Point(500, 200)
 
-    coords1r = add(coords1l, gr.Point(40,20))
-    coords2r = add(coords2l, gr.Point(40,20))
+    coords1r = add(coords1l, gr.Point(40, 20))
+    coords2r = add(coords2l, gr.Point(40, 20))
 
     block1 = gr.Rectangle(coords1l, coords1r)
     block1.setFill('cyan')
@@ -83,8 +83,8 @@ def main(w):
             count += 1
         if coords1r.x > coords2l.x:
             v10 = v1
-            v1 = ((m1 - m2)*v1 + 2*m2*v2) / (m1 + m2)
-            v2 = ((m2 - m1)*v2 + 2*m1*v10) / (m1 + m2)
+            v1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2)
+            v2 = ((m2 - m1) * v2 + 2 * m1 * v10) / (m1 + m2)
             count += 1
         gr.time.sleep(0.02)
 
