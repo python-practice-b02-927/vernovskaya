@@ -30,17 +30,15 @@ def first_ball():
 def move():
     global x, y, r, i, ballcolor, vx, vy
     for id_ in d:
-        del d[id_]
-        x = x + vx
-        y = y + vy
+        d[id_]['x'] += vx
+        d[id_]['y'] += vy
         if x > 800 or x < 0:
             vx = -vx
         if y > 600 or y < 0:
             vy = -vy
         canv.delete(id_)
-        id_ = canv.create_oval(x-r,y-r,x+r,y+r,fill = ballcolor, width=0)
-        d[id_] = {'x': x, 'y': y, 'r': r, 'vx': vx, 'vy': vy}
-    root.after(200, move)
+        canv.create_oval(d[id_]['x']-r,d[id_]['y']-r,d[id_]['x']+r,d[id_]['y']+r,fill = ballcolor, width=0)
+    root.after(300, move)
 
 
 def new_ball():
@@ -48,11 +46,11 @@ def new_ball():
     x = rnd(100,700)
     y = rnd(100,500)
     r = rnd(30,50)
-    vx = rnd(-5,5)
-    vy = rnd(-5,5)
+    vx = rnd(-3,3)
+    vy = rnd(-3,3)
     ballcolor = choice(colors)
     id_ = canv.create_oval(x-r,y-r,x+r,y+r,fill = ballcolor, width=0) 
-    d[id_] = {'x': x, 'y': y, 'r': r, 'vx': vx, 'vy': vy}
+    d[id_] = {'x': x, 'y': y, 'r': r, 'vx': vx, 'vy': vy, 'c': ballcolor}
     move()
     root.after(4000, new_ball)
     
