@@ -24,6 +24,7 @@ def check_wall_1(coords1l, v1, count):
     if coords1l.x < 0:
         v1 = -v1
         count += 1
+    return v1, count
 
 
 def check_block_1(coords1r, coords2l, v1, v2, m1, m2, count):
@@ -32,14 +33,15 @@ def check_block_1(coords1r, coords2l, v1, v2, m1, m2, count):
         v1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2)
         v2 = ((m2 - m1) * v2 + 2 * m1 * v10) / (m1 + m2)
         count += 1
+    return v1, v2, count
 
 
 def main(w):
     d = int(input('Enter the number of digital places: '))
-    
+
     m1 = 1
     m2 = 100**d
-    
+
     v1 = 0
     v2 = -5
 
@@ -78,18 +80,14 @@ def main(w):
         coords2l = gr.Point(coords2l.x + v2, coords2l.y)
         coords1r = gr.Point(coords1r.x + v1, coords1r.y)
         coords2r = gr.Point(coords2r.x + v2, coords2r.y)
-        if coords1l.x < 0:
-            v1 = -v1
-            count += 1
-        if coords1r.x > coords2l.x:
-            v10 = v1
-            v1 = ((m1 - m2) * v1 + 2 * m2 * v2) / (m1 + m2)
-            v2 = ((m2 - m1) * v2 + 2 * m1 * v10) / (m1 + m2)
-            count += 1
+        
+        v1, count = check_wall_1(coords1l, v1, count)
+        v1, v2, count = check_block_1(coords1r, coords2l, v1, v2, m1, m2, count)
+
         gr.time.sleep(0.02)
 
     print('pi =', count/(10**d))
 
-    
+ 
 main(w)
 w.close()
