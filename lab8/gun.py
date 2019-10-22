@@ -33,7 +33,7 @@ class ball():
                 self.y + self.r,
                 fill=self.color
         )
-        self.live = 30
+        self.live = 10
 
     def set_coords(self):
         canv.coords(
@@ -52,14 +52,21 @@ class ball():
         и стен по краям окна (размер окна 800х600).
         """
         if self.y > 550 or self.y < 0:
-            self.vy = -self.vy
+            self.vy = (-0.5)*self.vy
+            self.vx = (0.7)*self.vx
+            self.live -= 1
         if self.x < 0 or self.x > 800:
+            if self.x < 0:
+                self.x = 1
+            if self.x > 800:
+                self.x = 799
             self.vx = -self.vx
+            self.live -= 1
         self.x += self.vx 
         self.y -= self.vy
         self.vy -= 2
         self.set_coords()
-        self.live -= 1
+        
 
 
     def hittest(self, obj):
@@ -172,7 +179,6 @@ def new_game(event=''):
     while t1.live or balls:
         for b in balls:
             b.move()
-            print(b.live)
             if b.hittest(t1) and t1.live:
                 t1.live = 0
                 t1.hit()
@@ -180,8 +186,8 @@ def new_game(event=''):
                 canv.bind('<ButtonRelease-1>', '')
                 canv.itemconfig(screen1, text='Вы уничтожили цель за ' + str(bullet) + ' выстрелов')
             if b.live == 0:
-                canv.delete(b)
-                del b
+                canv.delete(b.id)
+                balls.remove(b)
         canv.update()
         time.sleep(0.03)
         g1.targetting()
