@@ -52,8 +52,13 @@ class Ball():
         и стен по краям окна (размер окна 800х600).
         """
         if self.y > 550 or self.y < 0:
-            self.vy = (-0.5) * self.vy
+            if self.y > 550:
+                self.y = 550
+
+            elif self.y < 0:
+                self.y = 1
             self.vx = (0.7) * self.vx
+            self.vy = (-0.5) * self.vy
             self.live -= 1
 
         if self.x < 0 or self.x > 800:
