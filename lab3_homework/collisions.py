@@ -1,5 +1,6 @@
-import graphics as gr
 import math
+import graphics as gr
+
 
 SIZE_X = 800
 SIZE_Y = 400
