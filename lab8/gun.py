@@ -1,9 +1,8 @@
-from random import randrange as rnd, choice
-import tkinter as tk
 import math
+import tkinter as tk
 import time
+from random import randrange as rnd, choice
 
-# print (dir(math))
 
 root = tk.Tk()
 fr = tk.Frame(root)
