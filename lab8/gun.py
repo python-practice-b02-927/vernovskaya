@@ -153,7 +153,6 @@ class target():
         self.color = 'red'
 
     def set_coords(self):
-        color = self.color
         canv.coords(
             self.id,
             self.x - self.r,
@@ -180,13 +179,12 @@ class target():
     def move(self):
         if self.y > 600 or self.y < 0:
             self.vty = (-1)*self.vty
-            
+
             if self.y > 600:
                 self.y = 590
 
             elif self.y < 0:
                 self.y = 10
-                
 
         if self.x < 0 or self.x > 800:
             self.vtx = (-1)*self.vtx
@@ -195,12 +193,10 @@ class target():
 
             if self.x > 800:
                 self.x = 780
-            
 
         self.x += self.vtx
         self.y += self.vty
         self.set_coords()
-        
 
 
 t1 = target()
@@ -224,7 +220,6 @@ def new_game(event=''):
     canv.bind('<ButtonRelease-1>', g1.fire2_end)
     canv.bind('<Motion>', g1.targetting)
 
-    z = 0.03
     t1.live = 1
     t2.live = 1
 
@@ -233,7 +228,6 @@ def new_game(event=''):
         t2.move()
         canv.update()
         time.sleep(0.03)
-        
 
     while (t1.live and t2.live) or balls:
         for b in balls:
@@ -251,7 +245,7 @@ def new_game(event=''):
                     text='Вы уничтожили цель за ' +
                     str(bullet) +
                     ' выстрелов')
-            
+
             if b.hittest(t1) and t1.live:
                 t1.live = 0
                 t1.hit()
@@ -276,7 +270,6 @@ def new_game(event=''):
         g1.targetting()
         g1.power_up()
 
-    
     canv.itemconfig(screen1, text='')
     canv.delete(Gun)
     score += 1
