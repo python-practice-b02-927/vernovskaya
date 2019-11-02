@@ -148,22 +148,58 @@ class target():
         self.live = 1
         self.id = canv.create_oval(0, 0, 0, 0)
         self.new_target()
+        self.vtx = 0
+        self.vty = 0
+        self.color = 'red'
+
+    def set_coords(self):
+        color = self.color
+        canv.coords(
+            self.id,
+            self.x - self.r,
+            self.y - self.r,
+            self.x + self.r,
+            self.y + self.r
+        )
 
     def new_target(self):
         """ Инициализация новой цели. """
         x = self.x = rnd(600, 780)
         y = self.y = rnd(300, 550)
         r = self.r = rnd(2, 50)
-        color = self.color = 'red'
+        self.vtx = rnd(-3, 0)
+        self.vty = rnd(-3, 3)
         canv.coords(self.id, x - r, y - r, x + r, y + r)
-        canv.itemconfig(self.id, fill=color)
+        color = self.color = 'red'
+        canv.itemconfig(self.id, fill=color, outline='black')
 
-    def hit(self, score, points=1):
+    def hit(self):
         """Попадание шарика в цель."""
         canv.coords(self.id, -10, -10, -10, -10)
 
     def move(self):
-        pass
+        if self.y > 600 or self.y < 0:
+            self.vty = (-1)*self.vty
+            
+            if self.y > 600:
+                self.y = 590
+
+            elif self.y < 0:
+                self.y = 10
+                
+
+        if self.x < 0 or self.x > 800:
+            self.vtx = (-1)*self.vtx
+            if self.x < 0:
+                self.x = 10
+
+            if self.x > 800:
+                self.x = 780
+            
+
+        self.x += self.vtx
+        self.y += self.vty
+        self.set_coords()
         
 
 
@@ -192,14 +228,21 @@ def new_game(event=''):
     t1.live = 1
     t2.live = 1
 
+    while g1.f2_on == 0:
+        t1.move()
+        t2.move()
+        canv.update()
+        time.sleep(0.03)
+        
+
     while (t1.live and t2.live) or balls:
         for b in balls:
             b.move()
-
             if b.hittest(t2) and t2.live:
                 score += 1
                 t2.live = 0
-                t2.hit(score)
+                t2.hit()
+                canv.itemconfig(t2.id, fill='white', outline='white')
                 print('hit target 2')
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
@@ -211,7 +254,8 @@ def new_game(event=''):
             
             if b.hittest(t1) and t1.live:
                 t1.live = 0
-                t1.hit(score)
+                t1.hit()
+                canv.itemconfig(t1.id, fill='white', outline='white')
                 print('hit target 1')
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
@@ -226,10 +270,13 @@ def new_game(event=''):
                 balls.remove(b)
 
         canv.update()
+        t1.move()
+        t2.move()
         time.sleep(0.03)
         g1.targetting()
         g1.power_up()
 
+    
     canv.itemconfig(screen1, text='')
     canv.delete(Gun)
     score += 1
