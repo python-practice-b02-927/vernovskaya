@@ -12,15 +12,15 @@ canv.pack(fill=tk.BOTH, expand=1)
 
 
 class Ball():
-    def __init__(self, x=40, y=450):
+    def __init__(self):
         """ Конструктор класса ball
 
         Args:
         x - начальное положение мяча по горизонтали
         y - начальное положение мяча по вертикали
         """
-        self.x = x
-        self.y = y
+        self.x = -10
+        self.y = -10
         self.r = 10
         self.vx = 0
         self.vy = 0
@@ -93,9 +93,12 @@ class Gun():
         self.f2_power = 10
         self.f2_on = 0
         self.an = 1
-        self.id = canv.create_line(20, 450, 50, 420, width=7)
+        self.x = 20
+        self.y = 450
+        self.id = canv.create_line(self.x, self.y, self.x+30, self.x-30, width=7)
 
     def fire2_start(self, event):
+        print('button')
         self.f2_on = 1
 
     def fire2_end(self, event):
@@ -108,6 +111,8 @@ class Gun():
 
         bullet += 1
         new_ball = Ball()
+        new_ball.x = self.x
+        new_ball.y = self.y
         new_ball.r += 5
         self.an = math.atan((event.y - new_ball.y) / (event.x - new_ball.x))
         new_ball.vx = self.f2_power * math.cos(self.an)
@@ -126,9 +131,10 @@ class Gun():
 
         else:
             canv.itemconfig(self.id, fill='black')
-        canv.coords(self.id, 20, 450,
-                    20 + max(self.f2_power, 20) * math.cos(self.an),
-                    450 + max(self.f2_power, 20) * math.sin(self.an)
+
+        canv.coords(self.id, self.x, self.y,
+                    self.x + max(self.f2_power, 20) * math.cos(self.an),
+                    self.y + max(self.f2_power, 20) * math.sin(self.an)
                     )
 
     def power_up(self):
@@ -141,8 +147,18 @@ class Gun():
         else:
             canv.itemconfig(self.id, fill='black')
 
+    def move_up(self, event):
+        print('move up')
+        self.y -= 10
+        canv.coords(self.id, self.x, self.y, self.x+30, self.x-30)
 
-class target():
+    def move_down(self, event):
+        print('move down')
+        self.y += 10
+        canv.coords(self.id, self.x, self.y, self.x+30, self.x-30)
+
+
+class Target():
     def __init__(self):
         self.points = 0
         self.live = 1
@@ -199,8 +215,8 @@ class target():
         self.set_coords()
 
 
-t1 = target()
-t2 = target()
+t1 = Target()
+t2 = Target()
 score = 0
 scoretext = canv.create_text(30, 30, text=score, font='28')
 screen1 = canv.create_text(400, 300, text='', font='28')
@@ -216,6 +232,10 @@ def new_game(event=''):
     t2.new_target()
     bullet = 0
     balls = []
+    canv.bind('<Up>', g1.move_up)
+    canv.focus_set()
+    canv.bind('<Down>', g1.move_down)
+    canv.focus_set()
     canv.bind('<Button-1>', g1.fire2_start)
     canv.bind('<ButtonRelease-1>', g1.fire2_end)
     canv.bind('<Motion>', g1.targetting)
@@ -238,6 +258,10 @@ def new_game(event=''):
                 t2.hit()
                 canv.itemconfig(t2.id, fill='white', outline='white')
                 print('hit target 2')
+                canv.bind('<Up>', g1.move_up)
+                canv.focus_set()
+                canv.bind('<Down>', g1.move_down)
+                canv.focus_set()
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
                 canv.itemconfig(
@@ -251,6 +275,10 @@ def new_game(event=''):
                 t1.hit()
                 canv.itemconfig(t1.id, fill='white', outline='white')
                 print('hit target 1')
+                canv.bind('<Up>', g1.move_up)
+                canv.focus_set()
+                canv.bind('<Down>', g1.move_down)
+                canv.focus_set()
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
                 canv.itemconfig(
