@@ -147,7 +147,6 @@ class target():
         self.points = 0
         self.live = 1
         self.id = canv.create_oval(0, 0, 0, 0)
-        self.id_points = canv.create_text(30, 30, text=self.points, font='28')
         self.new_target()
 
     def new_target(self):
@@ -159,11 +158,9 @@ class target():
         canv.coords(self.id, x - r, y - r, x + r, y + r)
         canv.itemconfig(self.id, fill=color)
 
-    def hit(self, points=1):
+    def hit(self, score, points=1):
         """Попадание шарика в цель."""
         canv.coords(self.id, -10, -10, -10, -10)
-        self.points += points
-        canv.itemconfig(self.id_points, text=self.points)
 
     def move(self):
         pass
@@ -172,6 +169,8 @@ class target():
 
 t1 = target()
 t2 = target()
+score = 0
+scoretext = canv.create_text(30, 30, text=score, font='28')
 screen1 = canv.create_text(400, 300, text='', font='28')
 g1 = Gun()
 bullet = 0
@@ -180,7 +179,7 @@ balls = []
 
 def new_game(event=''):
     print('new game')
-    global Gun, t1, t2, screen1, balls, bullet
+    global Gun, t1, t2, screen1, balls, bullet, score
     t1.new_target()
     t2.new_target()
     bullet = 0
@@ -198,8 +197,9 @@ def new_game(event=''):
             b.move()
 
             if b.hittest(t2) and t2.live:
+                score += 1
                 t2.live = 0
-                t2.hit()
+                t2.hit(score)
                 print('hit target 2')
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
@@ -211,7 +211,7 @@ def new_game(event=''):
             
             if b.hittest(t1) and t1.live:
                 t1.live = 0
-                t1.hit()
+                t1.hit(score)
                 print('hit target 1')
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
@@ -232,6 +232,9 @@ def new_game(event=''):
 
     canv.itemconfig(screen1, text='')
     canv.delete(Gun)
+    score += 1
+    canv.update()
+    canv.itemconfig(scoretext, text=score)
     print('new target')
     root.after(750, new_game)
 
