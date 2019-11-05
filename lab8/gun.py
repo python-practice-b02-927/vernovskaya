@@ -249,8 +249,13 @@ def new_game(event=''):
         canv.update()
         time.sleep(0.03)
 
-    while (t1.live and t2.live) or balls:
+    while (t1.live or t2.live) or balls:
+        canv.itemconfig(screen1, text='')
+        canv.bind('<Button-1>', g1.fire2_start)
+        canv.bind('<ButtonRelease-1>', g1.fire2_end)
         for b in balls:
+            canv.update()
+            canv.itemconfig(scoretext, text=score)
             b.move()
             if b.hittest(t2) and t2.live:
                 score += 1
@@ -264,13 +269,9 @@ def new_game(event=''):
                 canv.focus_set()
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
-                canv.itemconfig(
-                    screen1,
-                    text='Вы уничтожили цель за ' +
-                    str(bullet) +
-                    ' выстрелов')
 
             if b.hittest(t1) and t1.live:
+                score += 1
                 t1.live = 0
                 t1.hit()
                 canv.itemconfig(t1.id, fill='white', outline='white')
@@ -281,11 +282,6 @@ def new_game(event=''):
                 canv.focus_set()
                 canv.bind('<Button-1>', '')
                 canv.bind('<ButtonRelease-1>', '')
-                canv.itemconfig(
-                    screen1,
-                    text='Вы уничтожили цель за ' +
-                    str(bullet) +
-                    ' выстрелов')
 
             if b.live == 0:
                 canv.delete(b.id)
@@ -298,9 +294,12 @@ def new_game(event=''):
         g1.targetting()
         g1.power_up()
 
-    canv.itemconfig(screen1, text='')
+    canv.itemconfig(
+                    screen1,
+                    text='Вы уничтожили цели за ' +
+                    str(bullet) +
+                    ' выстрелов')
     canv.delete(Gun)
-    score += 1
     canv.update()
     canv.itemconfig(scoretext, text=score)
     print('new target')
