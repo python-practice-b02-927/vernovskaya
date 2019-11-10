@@ -202,8 +202,6 @@ class Gun(Agent):
 
         self.job = None 
 
-        ##self.canvas.guns[self.id] = self
-
     def start(self):
         self.bind_all()
         super().start()
@@ -238,13 +236,23 @@ class Gun(Agent):
         self.job = self.canvas.after(DT, self.update)
 
     def update_angle(self):
-        self.mouse_coords = self.canvas.get_mouse_coords()
-        dx = self.mouse_coords[0]-self.gun_coords[0]
-        dy = self.mouse_coords[1]-self.gun_coords[1]
-        if dx != 0:
-            self.an = math.atan(dy / dx)
+        if self.gun_coords[0] == 750:
+            self.mouse_coords = self.canvas.get_mouse_coords()
+            dx = self.mouse_coords[0]-self.gun_coords[0]
+            dy = self.mouse_coords[1]-self.gun_coords[1]
+            if dx != 0:
+                self.an = 3.14 + math.atan(dy / dx)
+            else:
+                self.an = 1
+
         else:
-            self.an = 1
+            self.mouse_coords = self.canvas.get_mouse_coords()
+            dx = self.mouse_coords[0]-self.gun_coords[0]
+            dy = self.mouse_coords[1]-self.gun_coords[1]
+            if dx != 0:
+                self.an = math.atan(dy / dx)
+            else:
+                self.an = 1
 
     def get_gunpoint(self):
         length = self.f2_power + self.zero_power_length
@@ -274,9 +282,6 @@ class Gun(Agent):
         bullet.start()
         self.f2_on = 0
         self.f2_power = 10
-
-    ##def set_gun_number(self, event):
-        ##self.
 
     def set_movement_direction_to_up(self, event):
         self.vy = -self.gun_velocity
@@ -411,12 +416,11 @@ class BattleField(tk.Canvas):
         self.num_targets = 2
         self.num_guns = 2
 
-        ##self.guns = {}
-
         self.gun1 = Gun(self)
         self.gun2 = Gun(self)
 
-        self.gun2.gun_coords = [20, 300]
+        self.gun2.gun_coords = [750, 450]
+        
         
         self.targets = {}
         self.bullets = {}
@@ -493,8 +497,8 @@ class BattleField(tk.Canvas):
 
     def start(self):
         self.catch_victory_job = self.after(DT, self.catch_victory)
-        self.gun1.start()
         self.gun2.start()
+
         for t in self.targets.values():
             t.start()
         for b in self.bullets.values():
@@ -549,13 +553,11 @@ class BattleField(tk.Canvas):
         self.pause_jobs()
 
     def restart(self):
-        print(self.gun1.get_state(), self.gun2.get_state())
         self.stop()
         self.itemconfig(self.victory_text_id, text='')
         self.remove_targets()
         self.remove_bullets()
         self.create_targets()
-        ##self.create_guns()
         self.bullet_counter = 0
         self.start()
 
@@ -566,7 +568,6 @@ class BattleField(tk.Canvas):
         return root
 
     def get_mouse_coords(self):
-        print(self.gun1.get_state(), self.gun2.get_state(), self.play_jobs())
         abs_x = self.winfo_pointerx()
         abs_y = self.winfo_pointery()
         canvas_x = self.winfo_rootx()
