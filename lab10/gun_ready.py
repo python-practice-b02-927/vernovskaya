@@ -200,7 +200,7 @@ class Gun(Agent):
         self.id = self.canvas.create_line(
             *self.gun_coords, *self.get_gunpoint(), width=7)
 
-        self.job = None
+        self.job = None 
 
         ##self.canvas.guns[self.id] = self
 
@@ -296,12 +296,12 @@ class Gun(Agent):
         root.bind('<KeyRelease-Up>', self.stop_movement, add='')
         root.bind('<Down>', self.set_movement_direction_to_down, add='')
         root.bind('<KeyRelease-Down>', self.stop_movement, add='')
+        
 
     def unbind_all(self):
         self.canvas.bind('<Button-1>', pass_event, add='')
         self.canvas.bind('<ButtonRelease-1>', pass_event, add='')
         root = self.canvas.get_root()
-        ##root.bind('<Return>', pass_event, add='')
         root.bind('<Up>', pass_event, add='')
         root.bind('<KeyRelease-Up>', pass_event, add='')
         root.bind('<Down>', pass_event, add='')
@@ -415,6 +415,9 @@ class BattleField(tk.Canvas):
 
         self.gun1 = Gun(self)
         self.gun2 = Gun(self)
+
+        self.gun2.gun_coords = [20, 300]
+        
         self.targets = {}
         self.bullets = {}
 
@@ -428,6 +431,17 @@ class BattleField(tk.Canvas):
 
         self.catch_victory_job = None
         self.canvas_restart_job = None
+
+        root = self.get_root()
+        root.bind('<Return>', self.switch_gun, add='')
+
+    def switch_gun(self, event):
+        if self.gun1.job is not None:
+            self.gun1.stop()
+            self.gun2.start()
+        else:
+            self.gun2.stop()
+            self.gun1.start()
 
     def remove_targets(self, targets_to_remove=None):
         if targets_to_remove is None:
@@ -497,6 +511,7 @@ class BattleField(tk.Canvas):
         self.play_jobs()
         self.gun1.play()
         self.gun2.play()
+
         for t in self.targets.values():
             t.play()
         for b in self.bullets.values():
@@ -534,6 +549,7 @@ class BattleField(tk.Canvas):
         self.pause_jobs()
 
     def restart(self):
+        print(self.gun1.get_state(), self.gun2.get_state())
         self.stop()
         self.itemconfig(self.victory_text_id, text='')
         self.remove_targets()
@@ -550,6 +566,7 @@ class BattleField(tk.Canvas):
         return root
 
     def get_mouse_coords(self):
+        print(self.gun1.get_state(), self.gun2.get_state(), self.play_jobs())
         abs_x = self.winfo_pointerx()
         abs_y = self.winfo_pointery()
         canvas_x = self.winfo_rootx()
@@ -627,6 +644,7 @@ class MainFrame(tk.Frame):
 
         self.battlefield = BattleField(self)
         self.battlefield.pack(fill=tk.BOTH, expand=1)
+
 
     def new_game(self):
         self.score = 0
